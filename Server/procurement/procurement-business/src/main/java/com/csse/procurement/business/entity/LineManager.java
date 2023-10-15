@@ -23,5 +23,4 @@ public class LineManager extends BaseEntity{
     private Boolean authorizedStatus;
     private Department department;
     private Company company;
-    private List<Policy> policyList;
 }

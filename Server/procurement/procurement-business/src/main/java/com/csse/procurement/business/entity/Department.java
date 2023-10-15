@@ -12,5 +12,4 @@ import lombok.Setter;
 public class Department extends BaseEntity{
     private Long id;
     private String departmentName;
-    private Company company;
 }

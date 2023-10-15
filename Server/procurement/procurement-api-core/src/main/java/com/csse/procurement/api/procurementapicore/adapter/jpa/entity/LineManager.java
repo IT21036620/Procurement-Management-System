@@ -28,6 +28,6 @@ public class LineManager extends  BaseEntity{
     private Company company;
 
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    @JoinColumn(name = "policyId")
+    @JoinColumn(name = "madeBy")
     private List<Policy> policyList;
 }

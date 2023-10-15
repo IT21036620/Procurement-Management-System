@@ -15,5 +15,4 @@ public class BankAccount extends BaseEntity {
     private String accountType;
     private String accountName;
     private String branch;
-    private Company company;
 }

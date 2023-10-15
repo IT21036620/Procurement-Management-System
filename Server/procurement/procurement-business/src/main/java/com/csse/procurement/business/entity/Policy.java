@@ -13,6 +13,5 @@ public class Policy extends BaseEntity {
     private Long id;
     private Long policyNo;
     private String statements;
-    private Company company;
     private LineManager madeBy;
 }
