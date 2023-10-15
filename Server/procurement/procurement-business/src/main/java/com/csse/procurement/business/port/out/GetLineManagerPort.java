@@ -17,5 +17,5 @@ public interface GetLineManagerPort {
      * @param id - line manager id
      * @return - line manager
      */
-    Policy getLineManagerById(Long id);
+    LineManager getLineManagerById(Long id);
 }
