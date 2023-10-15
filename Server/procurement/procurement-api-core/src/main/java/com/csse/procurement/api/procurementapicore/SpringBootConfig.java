@@ -1,13 +1,7 @@
 package com.csse.procurement.api.procurementapicore;
 
-import com.csse.procurement.business.impl.service.CompanyUseCaseImpl;
-import com.csse.procurement.business.impl.service.EmployeeUseCaseImpl;
-import com.csse.procurement.business.impl.service.ItemUseCaseImpl;
-import com.csse.procurement.business.impl.service.SiteUseCaseImpl;
-import com.csse.procurement.business.port.in.CompanyUseCase;
-import com.csse.procurement.business.port.in.EmployeeUseCase;
-import com.csse.procurement.business.port.in.ItemUseCase;
-import com.csse.procurement.business.port.in.SiteUseCase;
+import com.csse.procurement.business.impl.service.*;
+import com.csse.procurement.business.port.in.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -32,5 +26,10 @@ public class SpringBootConfig {
     @Bean
     public ItemUseCase itemUseCase() {
         return new ItemUseCaseImpl();
+    }
+
+    @Bean
+    OrderUseCase orderUseCase() {
+        return new OrderUseCaseImpl();
     }
 }
