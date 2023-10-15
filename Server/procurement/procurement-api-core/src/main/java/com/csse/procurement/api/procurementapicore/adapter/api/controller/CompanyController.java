@@ -3,6 +3,7 @@ package com.csse.procurement.api.procurementapicore.adapter.api.controller;
 import com.csse.procurement.api.procurementapicore.adapter.api.request.SiteRequest;
 import com.csse.procurement.api.procurementapicore.adapter.api.response.CommonResponse;
 import com.csse.procurement.business.entity.Company;
+import com.csse.procurement.business.entity.Department;
 import com.csse.procurement.business.entity.Site;
 import com.csse.procurement.business.entity.SiteManager;
 import com.csse.procurement.business.port.in.CompanyUseCase;
