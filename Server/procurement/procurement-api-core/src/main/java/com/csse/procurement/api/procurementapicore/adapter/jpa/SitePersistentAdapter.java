@@ -30,7 +30,7 @@ public class SitePersistentAdapter implements SaveSitePort, SaveSiteManagerPort,
         if (site != null) {
             com.csse.procurement.api.procurementapicore.adapter.jpa.entity.Site dbSite = mapper.map(site, com.csse.procurement.api.procurementapicore.adapter.jpa.entity.Site.class);
 
-            if (site.getSiteContactNo() != null) {
+            if (site.getSiteManager() != null) {
                 com.csse.procurement.api.procurementapicore.adapter.jpa.entity.SiteManager siteManager = mapper.map(site.getSiteManager(), com.csse.procurement.api.procurementapicore.adapter.jpa.entity.SiteManager.class);
                 siteManagerRepository.save(siteManager);
                 dbSite.setSiteManager(siteManager);
@@ -91,7 +91,7 @@ public class SitePersistentAdapter implements SaveSitePort, SaveSiteManagerPort,
 
     @Override
     public List<SiteManager> getAllSiteManagers() {
-        return null;
+        return siteManagerRepository.findAll().stream().map(n->mapper.map(n, SiteManager.class)).toList();
     }
 
     @Override
@@ -102,16 +102,42 @@ public class SitePersistentAdapter implements SaveSitePort, SaveSiteManagerPort,
 
     @Override
     public void createSiteManager(SiteManager siteManager) {
-
+        if (siteManager != null) {
+            com.csse.procurement.api.procurementapicore.adapter.jpa.entity.SiteManager dbSiteManager = mapper.map(siteManager, com.csse.procurement.api.procurementapicore.adapter.jpa.entity.SiteManager.class);
+            siteManagerRepository.save(dbSiteManager);
+        }
     }
 
     @Override
     public void updateSiteManager(SiteManager siteManager) {
+        Long siteManagerId = siteManager.getId();
 
+        if (siteManagerId == null) {
+            return;
+        }
+
+        Optional<com.csse.procurement.api.procurementapicore.adapter.jpa.entity.SiteManager> existingSiteManagerOptional = siteManagerRepository.findById(siteManagerId);
+        if (existingSiteManagerOptional.isPresent()) {
+            com.csse.procurement.api.procurementapicore.adapter.jpa.entity.SiteManager existingSiteManager = existingSiteManagerOptional.get();
+
+            existingSiteManager.setUserName(siteManager.getUserName());
+            existingSiteManager.setPassword(siteManager.getPassword());
+            existingSiteManager.setEmail(siteManager.getEmail());
+            existingSiteManager.setContactNo(siteManager.getContactNo());
+            existingSiteManager.setEmployeeCode(siteManager.getEmployeeCode());
+            existingSiteManager.setRole(siteManager.getRole());
+            existingSiteManager.setAuthorizedStatus(siteManager.getAuthorizedStatus());
+
+            siteManagerRepository.save(existingSiteManager);
+        }
     }
 
     @Override
     public void deleteSiteManagerById(Long siteManagerId) {
+        Optional<com.csse.procurement.api.procurementapicore.adapter.jpa.entity.SiteManager> optionalSiteManager = siteManagerRepository.findById(siteManagerId);
 
+        if (optionalSiteManager.isPresent()) {
+            siteManagerRepository.deleteById(siteManagerId);
+        }
     }
 }

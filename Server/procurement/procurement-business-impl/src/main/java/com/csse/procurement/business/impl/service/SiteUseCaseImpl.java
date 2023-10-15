@@ -61,22 +61,28 @@ public class SiteUseCaseImpl implements SiteUseCase {
 
     @Override
     public void createSiteManager(SiteManager siteManager) {
-
+        saveSiteManagerPort.createSiteManager(siteManager);
     }
 
     @Override
     public void updateSiteManager(SiteManager siteManager) {
+        SiteManager existingSiteManager = getSiteManagerPort.getSiteManagerById(siteManager.getId());
 
+        if (existingSiteManager == null) {
+            throw new BusinessLogicException(SITE_MANAGER_NOT_FOUND);
+        }
+
+        saveSiteManagerPort.updateSiteManager(siteManager);
     }
 
     @Override
     public void deleteSiteManagerById(Long siteManagerId) {
-
+        saveSiteManagerPort.deleteSiteManagerById(siteManagerId);
     }
 
     @Override
     public List<SiteManager> getAllSiteManagers() {
-        return null;
+        return getSiteManagerPort.getAllSiteManagers();
     }
 
     @Override

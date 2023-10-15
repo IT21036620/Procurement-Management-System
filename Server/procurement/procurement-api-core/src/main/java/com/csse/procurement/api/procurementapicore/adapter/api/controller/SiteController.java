@@ -1,5 +1,6 @@
 package com.csse.procurement.api.procurementapicore.adapter.api.controller;
 
+import com.csse.procurement.api.procurementapicore.adapter.api.request.SiteManagerRequest;
 import com.csse.procurement.api.procurementapicore.adapter.api.request.SiteRequest;
 import com.csse.procurement.api.procurementapicore.adapter.api.response.CommonResponse;
 import com.csse.procurement.business.entity.Site;
@@ -44,7 +45,7 @@ public class SiteController {
     @DeleteMapping("/{id}")
     public ResponseEntity<CommonResponse> deleteSiteById(@PathVariable Long id) {
         siteService.deleteSiteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(new CommonResponse("successfully delete site with id: " + id));
+        return ResponseEntity.status(HttpStatus.OK).body(new CommonResponse("successfully deleted site with id: " + id));
     }
 
     @GetMapping
@@ -55,5 +56,35 @@ public class SiteController {
     @GetMapping("/{id}")
     public ResponseEntity<CommonResponse> getSiteById(@PathVariable Long id) {
         return ResponseEntity.ok(new CommonResponse(siteService.getSiteById(id)));
+    }
+
+    @PostMapping("/site-manager")
+    public ResponseEntity<String> createSiteManager(@RequestBody final SiteManagerRequest request) {
+        SiteManager siteManager = mapper.map(request, SiteManager.class);
+        siteService.createSiteManager(siteManager);
+        return ResponseEntity.ok(null);
+    }
+
+    @PutMapping("/site-manager")
+    public ResponseEntity<CommonResponse> updateSiteManager(@RequestBody SiteManagerRequest request) {
+        SiteManager siteManager = mapper.map(request, SiteManager.class);
+        siteService.updateSiteManager(siteManager);
+        return ResponseEntity.status(HttpStatus.OK).body(new CommonResponse("updated site manager with id: " + siteManager.getId()));
+    }
+
+    @DeleteMapping("/site-manager/{id}")
+    public ResponseEntity<CommonResponse> deleteSiteManagerById(@PathVariable Long id) {
+        siteService.deleteSiteManagerById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(new CommonResponse("successfully deleted site manager with id: " + id));
+    }
+
+    @GetMapping("/site-manager")
+    public ResponseEntity<CommonResponse> getAllSiteManagers() {
+        return ResponseEntity.ok(new CommonResponse(siteService.getAllSiteManagers()));
+    }
+
+    @GetMapping("/site-manager/{id}")
+    public ResponseEntity<CommonResponse> getSiteManagerById(@PathVariable Long id) {
+        return ResponseEntity.ok(new CommonResponse(siteService.getSiteManagerById(id)));
     }
 }
