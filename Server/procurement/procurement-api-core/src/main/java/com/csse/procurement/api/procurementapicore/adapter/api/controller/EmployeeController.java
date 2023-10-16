@@ -32,7 +32,7 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.OK).body(new CommonResponse("updated line manager with id: " + lineManager.getId()));
     }
 
-    @DeleteMapping("line-manager/{id}")
+    @DeleteMapping("/line-manager/{id}")
     public ResponseEntity<CommonResponse> deleteLineManagerById(@PathVariable Long id) {
         employeeService.deleteLineManagerById(id);
         return ResponseEntity.status(HttpStatus.OK).body(new CommonResponse("successfully deleted line manager with id: " + id));
@@ -43,7 +43,7 @@ public class EmployeeController {
         return ResponseEntity.ok(new CommonResponse(employeeService.getAllLineManagers()));
     }
 
-    @GetMapping("line-manager/{id}")
+    @GetMapping("/line-manager/{id}")
     public ResponseEntity<CommonResponse> getLineManagerById(@PathVariable Long id) {
         return ResponseEntity.ok(new CommonResponse(employeeService.getLineManagerById(id)));
     }
