@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 import * as XLSX from 'xlsx'
+import constructionimg from '../Dashboard/img/constructionsite.jpeg'
 
 export default function ItemPerformance() {
   return (
@@ -15,24 +16,16 @@ export default function ItemPerformance() {
         <div>
           <h2 className="font-medium text-lg mb-4">Site Description</h2>
           <p className="mb-6 text-gray-600">
-            Lorem ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem ipsum is simply dummy text of the printing and
-            typesetting industry. Lorem ipsum is simply dummy text of the
-            printing and typesetting industry. Lorem ipsum is simply dummy text
-            of the printing and typesetting industry. Lorem ipsum is simply
-            dummy text of the printing and typesetting industry. Lorem ipsum is
-            simply dummy text of the printing and typesetting industry. Lorem
-            ipsum is simply dummy text of the printing and typesetting industry.
-            Lorem ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem ipsum is simply dummy text of the printing and
-            typesetting industry. Lorem ipsum is simply dummy text of the
-            printing and typesetting industry. Lorem ipsum is simply dummy text
-            of the printing and typesetting industry. Lorem ipsum is simply
-            dummy text of the printing and typesetting industry.
+            A construction site is an area or piece of land where construction
+            work is taking place. Sometimes construction sites are referred to
+            as 'building sites'. This usually implies that buildings or houses
+            are being constructed, whereas 'construction site' covers a wider
+            scope of work.
           </p>
 
           <img
-            src="path_to_image.jpg"
+            // src="img/constructionsite.jpeg"
+            src={constructionimg}
             alt="Site Image"
             className="rounded-lg mb-6"
           />
