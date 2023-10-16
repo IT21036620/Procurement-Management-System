@@ -9,9 +9,11 @@ import com.csse.procurement.business.port.out.GetPaymentPort;
 import com.csse.procurement.business.port.out.SaveInvoicePort;
 import com.csse.procurement.business.port.out.SavePaymentPort;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PaymentUseCaseImpl implements PaymentUseCase {
     private static final String PAYMENT_NOT_FOUND = "Payment not found";
     private static final String INVOICE_NOT_FOUND = "Invoice not found";

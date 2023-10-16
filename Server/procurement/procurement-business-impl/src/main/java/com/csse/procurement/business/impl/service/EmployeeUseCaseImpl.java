@@ -5,9 +5,11 @@ import com.csse.procurement.business.exception.BusinessLogicException;
 import com.csse.procurement.business.port.in.EmployeeUseCase;
 import com.csse.procurement.business.port.out.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class EmployeeUseCaseImpl implements EmployeeUseCase {
     private static final String LINE_MANAGER_NOT_FOUND = "Line manager not found";
     private static final String SYSTEM_ADMIN_NOT_FOUND = "System admin not found";

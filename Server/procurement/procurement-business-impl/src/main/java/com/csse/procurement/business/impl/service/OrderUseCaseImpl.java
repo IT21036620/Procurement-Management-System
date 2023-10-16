@@ -11,9 +11,11 @@ import com.csse.procurement.business.port.out.GetRequisitionPort;
 import com.csse.procurement.business.port.out.SavePurchaseOrderPort;
 import com.csse.procurement.business.port.out.SaveRequisitionPort;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class OrderUseCaseImpl implements OrderUseCase {
     private static final String PURCHASE_ORDER_NOT_FOUND = "Purchase order not found";
     private static final String PURCHASE_ORDER_ITEM_NOT_FOUND = "Purchase order item not found";

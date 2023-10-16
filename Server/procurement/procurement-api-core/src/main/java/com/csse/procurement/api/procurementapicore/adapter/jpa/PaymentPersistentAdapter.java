@@ -1,23 +1,17 @@
 package com.csse.procurement.api.procurementapicore.adapter.jpa;
 
 import com.csse.procurement.api.procurementapicore.adapter.jpa.entity.PurchaseOrder;
-import com.csse.procurement.api.procurementapicore.adapter.jpa.entity.PurchaseOrderItem;
-import com.csse.procurement.api.procurementapicore.adapter.jpa.entity.Requisition;
-import com.csse.procurement.api.procurementapicore.adapter.jpa.entity.SiteManager;
 import com.csse.procurement.api.procurementapicore.adapter.jpa.repository.InvoiceRepository;
 import com.csse.procurement.api.procurementapicore.adapter.jpa.repository.PaymentRepository;
 import com.csse.procurement.api.procurementapicore.adapter.jpa.repository.PurchaseOrderRepository;
 import com.csse.procurement.business.entity.Invoice;
-import com.csse.procurement.business.entity.LineManager;
 import com.csse.procurement.business.entity.Payment;
 import com.csse.procurement.business.port.out.GetInvoicePort;
 import com.csse.procurement.business.port.out.GetPaymentPort;
 import com.csse.procurement.business.port.out.SaveInvoicePort;
 import com.csse.procurement.business.port.out.SavePaymentPort;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

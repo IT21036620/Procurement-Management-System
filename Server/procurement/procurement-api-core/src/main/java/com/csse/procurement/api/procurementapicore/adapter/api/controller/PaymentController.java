@@ -1,9 +1,7 @@
 package com.csse.procurement.api.procurementapicore.adapter.api.controller;
 
 import com.csse.procurement.api.procurementapicore.adapter.api.response.CommonResponse;
-import com.csse.procurement.business.entity.Company;
 import com.csse.procurement.business.entity.Invoice;
-import com.csse.procurement.business.entity.LineManager;
 import com.csse.procurement.business.entity.Payment;
 import com.csse.procurement.business.port.in.PaymentUseCase;
 import org.springframework.beans.factory.annotation.Autowired;

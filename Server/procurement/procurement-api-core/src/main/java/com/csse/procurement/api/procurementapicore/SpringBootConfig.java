@@ -29,12 +29,17 @@ public class SpringBootConfig {
     }
 
     @Bean
-    OrderUseCase orderUseCase() {
+    public OrderUseCase orderUseCase() {
         return new OrderUseCaseImpl();
     }
 
     @Bean
-    PaymentUseCase paymentUseCase() {
+    public PaymentUseCase paymentUseCase() {
         return new PaymentUseCaseImpl();
+    }
+
+    @Bean
+    public DeliveryUseCase deliveryUseCase() {
+        return new DeliveryUseCaseImpl();
     }
 }
