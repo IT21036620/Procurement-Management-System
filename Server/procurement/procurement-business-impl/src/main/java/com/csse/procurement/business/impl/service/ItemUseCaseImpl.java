@@ -10,9 +10,11 @@ import com.csse.procurement.business.port.out.GetSupplierPort;
 import com.csse.procurement.business.port.out.SaveItemPort;
 import com.csse.procurement.business.port.out.SaveSupplierPort;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ItemUseCaseImpl implements ItemUseCase {
     private static final String ITEM_NOT_FOUND = "Item not found";
     private static final String SUPPLIER_NOT_FOUND = "Supplier not found";
