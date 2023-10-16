@@ -32,4 +32,9 @@ public class SpringBootConfig {
     OrderUseCase orderUseCase() {
         return new OrderUseCaseImpl();
     }
+
+    @Bean
+    PaymentUseCase paymentUseCase() {
+        return new PaymentUseCaseImpl();
+    }
 }
