@@ -3,6 +3,7 @@ package com.csse.procurement.api.procurementapicore.adapter.jpa.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Builder
 public class Company extends BaseEntity {
     private String companyName;
     private String hoAddress;
