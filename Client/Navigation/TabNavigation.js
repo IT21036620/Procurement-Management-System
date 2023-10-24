@@ -16,52 +16,62 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 const Tab = createBottomTabNavigator();
 const TabNavigation = () => {
   return (
-      <Tab.Navigator screenOptions={{
-        headerShown:false,
-      }}>
+    <Tab.Navigator 
+    screenOptions={{ headerShown: false }}
+    tabBarOptions={{
+        labelStyle: {
+            fontSize: 15,
+            color: 'green',
+        }
+    }}>
         <Tab.Screen
-          name="HomeNav"
+          name="Home"
           component={HomeScreen}
           options={{
-            tabBarIcon: ({color, size}) => (
-              <MaterialCommunityIcons name="home" size={size} color={color} />
+            tabBarIcon: ({focused,color, size}) => (
+              <MaterialCommunityIcons name="home" size={40}  color={focused ? "rgb(13, 145, 48)" : "rgb(35, 222, 85)"} />
             ),
+            tabBarLabel: () => null
           }}
         />
         <Tab.Screen
           name="Records"
           component={HomeScreen}
           options={{
-            tabBarIcon: ({color, size}) => (
-              <MaterialCommunityIcons name="file-document" size={size} color={color} />
+            tabBarIcon: ({focused,color, size}) => (
+              <MaterialCommunityIcons name="format-list-bulleted" size={40}  color={focused ? "rgb(13, 145, 48)" : "rgb(35, 222, 85)"} />
             ),
+            tabBarLabel: () => null
           }}
         />
         <Tab.Screen
           name="Reminders"
           component={HomeScreen}
           options={{
-            tabBarIcon: ({color, size}) => (
-              <MaterialCommunityIcons name="calendar" size={size} color={color} />
+            tabBarIcon: ({focused,color, size}) => (
+              <MaterialCommunityIcons name="bell" size={40}  color={focused ? "rgb(13, 145, 48)" : "rgb(35, 222, 85)"} />
             ),
+            tabBarLabel: () => null
           }}
         />
         <Tab.Screen
           name="MediShareNav"
           component={HomeScreen}
           options={{
-            tabBarIcon: ({color, size}) => (
-              <MaterialCommunityIcons name="account-group" size={size} color={color} />
+            tabBarIcon: ({focused,color, size}) => (
+              <MaterialCommunityIcons name="storefront" size={40}  color={focused ? "rgb(13, 145, 48)" : "rgb(35, 222, 85)"} />
             ),
+            tabBarLabel: () => null
           }}
         />
         <Tab.Screen
           name="Profile"
           component={HomeScreen}
           options={{
-            tabBarIcon: ({color, size}) => (
-              <MaterialCommunityIcons name="account" size={size} color={color} />
+            tabBarIcon: ({focused, color, size}) => (
+              <MaterialCommunityIcons name="account" size={40}  color={focused ? "rgb(13, 145, 48)" : "rgb(35, 222, 85)"}/>
             ),
+            tabBarLabel: () => null
           }}
         />
       </Tab.Navigator>
