@@ -19,15 +19,6 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>KBS</Text>
-        <TouchableOpacity>
-          <Ionicons name="filter" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
       <TextInput style={styles.searchBar} placeholder="Search" />
       <Text style={styles.sectionTitle}>Hot deals</Text>
       <FlatList

@@ -16,11 +16,11 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 const Tab = createBottomTabNavigator();
 const TabNavigation = () => {
   return (
-    <Tab.Navigator 
-    screenOptions={{ headerShown: false}}
-    >
+    <Tab.Navigator screenOptions={{
+      headerTitleAlign:'center'
+    }}>
         <Tab.Screen
-          name="Home"
+          name="PMS"
           component={HomeScreen}
           options={{
             tabBarIcon: ({focused,color, size}) => (
