@@ -10,6 +10,7 @@ import HomeScreen from '../components/Home/HomeScreen.js';
 // import RemindersNavigator from './RemindersNavigator.js';
 // import MediShareNavigator from './MediShareNavigator.js';
 // import ProfileNavigator from './ProfileNavigator.js';
+import LoginScreen from '../components/Login/LoginScreen.js';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -31,7 +32,7 @@ const TabNavigation = () => {
         />
         <Tab.Screen
           name="Records"
-          component={HomeScreen}
+          component={LoginScreen}
           options={{
             tabBarIcon: ({focused,color, size}) => (
               <MaterialCommunityIcons name="format-list-bulleted" size={40}  color={focused ? "rgb(13, 145, 48)" : "rgb(35, 222, 85)"} />
