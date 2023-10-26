@@ -25,7 +25,7 @@ export const DASHBOARD_SIDEBAR_LINKS = [
   {
     key: 'products',
     label: 'Products',
-    path: '/ordersAdmin',
+    path: '/AllProducts',
     icon: <HiOutlineCube />,
   },
   {
@@ -37,13 +37,13 @@ export const DASHBOARD_SIDEBAR_LINKS = [
   {
     key: 'customers',
     label: 'Suppliers',
-    path: '/admin/customers',
+    path: '/suppliers',
     icon: <HiOutlineUsers />,
   },
   {
     key: 'transactions',
     label: 'Users',
-    path: '/admin/iperformance',
+    path: '/iperformance',
     icon: <HiOutlineDocumentText />,
   },
   // {
