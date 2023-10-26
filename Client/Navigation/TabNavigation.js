@@ -3,17 +3,15 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import HomeNavigator from "./HomeNavigator.js";
+import OrderListNavigator from "./OrderListNavigator.js";
+import CartNavigator from "./CartNavigator.js";
 
 import HomeScreen from "../components/Home/HomeScreen.js";
 import ContentScreen from "../components/Shop/ContentScreen.js";
-
-// import Profile from '../screens/ProfileScreen.js';
-// import HomeNavigator from './HomeNavigator.js';
-// import RecordNavigator from './RecordNavigator.js';
-// import RemindersNavigator from './RemindersNavigator.js';
-// import MediShareNavigator from './MediShareNavigator.js';
-// import ProfileNavigator from './ProfileNavigator.js';
+import ProfileScreen from "../components/Profile/ProfileScreen.js";
 import LoginScreen from "../components/Login/LoginScreen.js";
+import CartScreen from "../components/Cart/CartScreen.js";
+import OrderListScreen from "../components/Orders/OrderList.js";
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -41,7 +39,7 @@ const TabNavigation = () => {
       />
       <Tab.Screen
         name="Orders"
-        component={LoginScreen}
+        component={OrderListNavigator}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <MaterialCommunityIcons
@@ -68,8 +66,8 @@ const TabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Shop"
-        component={ContentScreen}
+        name="Cart"
+        component={CartNavigator}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <MaterialCommunityIcons
@@ -83,7 +81,7 @@ const TabNavigation = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={HomeScreen}
+        component={ProfileScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <MaterialCommunityIcons
