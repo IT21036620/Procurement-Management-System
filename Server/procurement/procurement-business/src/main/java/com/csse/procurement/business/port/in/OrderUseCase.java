@@ -1,8 +1,8 @@
 package com.csse.procurement.business.port.in;
 
 import com.csse.hexa.core.UseCase;
+import com.csse.procurement.business.entity.Cart;
 import com.csse.procurement.business.entity.PurchaseOrder;
-import com.csse.procurement.business.entity.PurchaseOrderItem;
 import com.csse.procurement.business.entity.Requisition;
 
 import java.util.List;
@@ -70,4 +70,10 @@ public interface OrderUseCase {
      * @return - requisition
      */
     Requisition getRequisitionById(Long id);
+
+    void createCart(Cart cart);
+
+    Cart getCartById(Long id);
+
+    Cart getCartBySiteManagerId(Long id);
 }

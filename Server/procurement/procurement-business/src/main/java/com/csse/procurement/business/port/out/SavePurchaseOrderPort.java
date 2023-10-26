@@ -1,5 +1,6 @@
 package com.csse.procurement.business.port.out;
 
+import com.csse.procurement.business.entity.Cart;
 import com.csse.procurement.business.entity.Policy;
 import com.csse.procurement.business.entity.PurchaseOrder;
 
@@ -21,4 +22,6 @@ public interface SavePurchaseOrderPort {
      * @param id - purchase order id
      */
     void deletePurchaseOrderById(Long id);
+
+    void createCart(Cart cart);
 }

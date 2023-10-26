@@ -1,9 +1,13 @@
 package com.csse.procurement.api.procurementapicore.adapter.api.controller;
 
+import com.csse.procurement.api.procurementapicore.adapter.api.request.CartRequest;
 import com.csse.procurement.api.procurementapicore.adapter.api.response.CommonResponse;
+import com.csse.procurement.business.entity.Cart;
 import com.csse.procurement.business.entity.PurchaseOrder;
 import com.csse.procurement.business.entity.Requisition;
+import com.csse.procurement.business.entity.SiteManager;
 import com.csse.procurement.business.port.in.OrderUseCase;
+import com.csse.procurement.business.port.in.SiteUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +17,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/order")
 public class OrderController {
     private final OrderUseCase orderService;
+    private final SiteUseCase siteService;
 
     private org.modelmapper.ModelMapper mapper = new org.modelmapper.ModelMapper();
 
     @Autowired
-    public OrderController(OrderUseCase orderService) {
+    public OrderController(OrderUseCase orderService, SiteUseCase siteService) {
         this.orderService = orderService;
+        this.siteService = siteService;
     }
 
     @PostMapping
@@ -27,7 +33,7 @@ public class OrderController {
         return ResponseEntity.ok(null);
     }
 
-    @PutMapping
+    @PatchMapping
     public ResponseEntity<CommonResponse> updatePurchaseOrder(@RequestBody PurchaseOrder purchaseOrder) {
         orderService.updatePurchaseOrder(purchaseOrder);
         return ResponseEntity.status(HttpStatus.OK).body(new CommonResponse("updated purchase order with id: " + purchaseOrder.getId()));
@@ -55,7 +61,7 @@ public class OrderController {
         return ResponseEntity.ok(null);
     }
 
-    @PutMapping("/requisition")
+    @PatchMapping("/requisition")
     public ResponseEntity<CommonResponse> updateRequisition(@RequestBody Requisition requisition) {
         orderService.updateRequisition(requisition);
         return ResponseEntity.status(HttpStatus.OK).body(new CommonResponse("updated requisition with id: " + requisition.getId()));
@@ -75,5 +81,27 @@ public class OrderController {
     @GetMapping("requisition/{id}")
     public ResponseEntity<CommonResponse> getRequisitionById(@PathVariable Long id) {
         return ResponseEntity.ok(new CommonResponse(orderService.getRequisitionById(id)));
+    }
+
+    @PostMapping("/cart")
+    public ResponseEntity<String> createCart(@RequestBody final CartRequest cartRequest) {
+        SiteManager siteManager = siteService.getSiteManagerById(cartRequest.getSiteManager());
+        Double totalPrice = 0.00;
+        Cart cart = new Cart();
+        cart.setSiteManager(siteManager);
+        cart.setPurchaseOrderItemList(cartRequest.getPurchaseOrderItemList());
+        cart.setTotalPrice(totalPrice);
+        orderService.createCart(cart);
+        return ResponseEntity.ok(null);
+    }
+
+    @GetMapping("cart/{id}")
+    public ResponseEntity<CommonResponse> getCartById(@PathVariable Long id) {
+        return ResponseEntity.ok(new CommonResponse(orderService.getCartById(id)));
+    }
+
+    @GetMapping("cart/site-manager/{id}")
+    public ResponseEntity<CommonResponse> getCartBySiteManagerId(@PathVariable Long id) {
+        return ResponseEntity.ok(new CommonResponse(orderService.getCartBySiteManagerId(id)));
     }
 }

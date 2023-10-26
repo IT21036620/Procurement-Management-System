@@ -1,9 +1,6 @@
 package com.csse.procurement.api.procurementapicore.adapter.jpa;
 
-import com.csse.procurement.api.procurementapicore.adapter.jpa.repository.PurchaseOrderItemRepository;
-import com.csse.procurement.api.procurementapicore.adapter.jpa.repository.PurchaseOrderRepository;
-import com.csse.procurement.api.procurementapicore.adapter.jpa.repository.RequisitionRepository;
-import com.csse.procurement.api.procurementapicore.adapter.jpa.repository.SiteManagerRepository;
+import com.csse.procurement.api.procurementapicore.adapter.jpa.repository.*;
 import com.csse.procurement.business.entity.*;
 import com.csse.procurement.business.port.out.GetPurchaseOrderPort;
 import com.csse.procurement.business.port.out.GetRequisitionPort;
@@ -22,14 +19,16 @@ public class OrderPersistentAdapter implements SavePurchaseOrderPort, GetPurchas
     private final PurchaseOrderItemRepository purchaseOrderItemRepository;
     private final RequisitionRepository requisitionRepository;
     private final SiteManagerRepository siteManagerRepository;
+    private final CartRepository cartRepository;
 
     private org.modelmapper.ModelMapper mapper = new org.modelmapper.ModelMapper();
 
-    public OrderPersistentAdapter(PurchaseOrderRepository purchaseOrderRepository, PurchaseOrderItemRepository purchaseOrderItemRepository, RequisitionRepository requisitionRepository, SiteManagerRepository siteManagerRepository) {
+    public OrderPersistentAdapter(PurchaseOrderRepository purchaseOrderRepository, PurchaseOrderItemRepository purchaseOrderItemRepository, RequisitionRepository requisitionRepository, SiteManagerRepository siteManagerRepository, CartRepository cartRepository) {
         this.purchaseOrderRepository = purchaseOrderRepository;
         this.purchaseOrderItemRepository = purchaseOrderItemRepository;
         this.requisitionRepository = requisitionRepository;
         this.siteManagerRepository = siteManagerRepository;
+        this.cartRepository = cartRepository;
     }
 
     @Override
@@ -54,9 +53,15 @@ public class OrderPersistentAdapter implements SavePurchaseOrderPort, GetPurchas
             com.csse.procurement.api.procurementapicore.adapter.jpa.entity.PurchaseOrder existingPurchaseOrder = optionalPurchaseOrder.get();
             List<com.csse.procurement.api.procurementapicore.adapter.jpa.entity.PurchaseOrderItem> purchaseOrderItemList = new ArrayList<>();
 
-            existingPurchaseOrder.setPoReference(purchaseOrder.getPoReference());
-            existingPurchaseOrder.setTotalPrice(purchaseOrder.getTotalPrice());
-            existingPurchaseOrder.setStatus(String.valueOf(purchaseOrder.getStatus()));
+            if (purchaseOrder.getPoReference() != null && !purchaseOrder.getPoReference().isEmpty()) {
+                existingPurchaseOrder.setPoReference(purchaseOrder.getPoReference());
+            }
+            if (purchaseOrder.getTotalPrice() != null) {
+                existingPurchaseOrder.setTotalPrice(purchaseOrder.getTotalPrice());
+            }
+            if (purchaseOrder.getStatus() != null) {
+                existingPurchaseOrder.setStatus(String.valueOf(purchaseOrder.getStatus()));
+            }
 
             if (purchaseOrder.getSiteManager() != null) {
                 com.csse.procurement.api.procurementapicore.adapter.jpa.entity.SiteManager siteManager = siteManagerRepository.findById(purchaseOrder.getSiteManager().getId()).orElse(null);
@@ -102,6 +107,26 @@ public class OrderPersistentAdapter implements SavePurchaseOrderPort, GetPurchas
     }
 
     @Override
+    public void createCart(Cart cart) {
+        if (cart != null) {
+            com.csse.procurement.api.procurementapicore.adapter.jpa.entity.Cart dbCart = mapper.map(cart, com.csse.procurement.api.procurementapicore.adapter.jpa.entity.Cart.class);
+            cartRepository.save(dbCart);
+        }
+    }
+
+    @Override
+    public Cart getCartById(Long id) {
+        Optional<com.csse.procurement.api.procurementapicore.adapter.jpa.entity.Cart> optionalCart = cartRepository.findById(id);
+        return mapper.map(optionalCart, Cart.class);
+    }
+
+    @Override
+    public Cart getCartBySiteManagerId(Long id) {
+        Optional<com.csse.procurement.api.procurementapicore.adapter.jpa.entity.Cart> optionalCart = cartRepository.getCartBySiteManagerId(id);
+        return mapper.map(optionalCart, Cart.class);
+    }
+
+    @Override
     public void createRequisition(Requisition requisition) {
         if (requisition != null) {
             com.csse.procurement.api.procurementapicore.adapter.jpa.entity.Requisition dbRequisition = mapper.map(requisition, com.csse.procurement.api.procurementapicore.adapter.jpa.entity.Requisition.class);
@@ -122,10 +147,18 @@ public class OrderPersistentAdapter implements SavePurchaseOrderPort, GetPurchas
         if (optionalRequisition.isPresent()) {
             com.csse.procurement.api.procurementapicore.adapter.jpa.entity.Requisition existingRequisition = optionalRequisition.get();
 
-            existingRequisition.setReqOrdNo(requisition.getReqOrdNo());
-            existingRequisition.setDetails(requisition.getDetails());
-            existingRequisition.setStatus(String.valueOf(requisition.getStatus()));
-            existingRequisition.setAmount(requisition.getAmount());
+            if (requisition.getReqOrdNo() != null && !requisition.getReqOrdNo().isEmpty()) {
+                existingRequisition.setReqOrdNo(requisition.getReqOrdNo());
+            }
+            if (requisition.getDetails() != null && !requisition.getDetails().isEmpty()) {
+                existingRequisition.setDetails(requisition.getDetails());
+            }
+            if (requisition.getStatus() != null) {
+                existingRequisition.setStatus(String.valueOf(requisition.getStatus()));
+            }
+            if (requisition.getAmount() != null) {
+                existingRequisition.setAmount(requisition.getAmount());
+            }
 
             requisitionRepository.save(existingRequisition);
         }
