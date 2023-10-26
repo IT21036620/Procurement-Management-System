@@ -33,7 +33,12 @@ public class ItemController {
     }
 
     @PutMapping
-    public ResponseEntity<CommonResponse> updateItem(@RequestBody Item item) {
+    public ResponseEntity<CommonResponse> updateItem(@RequestBody ItemRequest request) {
+        Item item = mapper.map(request, Item.class);
+        if (request.getSupplier() != null) {
+            Supplier supplier = itemService.getSupplierById(request.getSupplier());
+            item.setSupplier(supplier);
+        }
         itemService.updateItem(item);
         return ResponseEntity.status(HttpStatus.OK).body(new CommonResponse("updated item with id: " + item.getId()));
     }
