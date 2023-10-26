@@ -10,15 +10,20 @@ import HomeScreen from "../components/Home/HomeScreen.js";
 // import RemindersNavigator from './RemindersNavigator.js';
 // import MediShareNavigator from './MediShareNavigator.js';
 // import ProfileNavigator from './ProfileNavigator.js';
+import LoginScreen from "../components/Login/LoginScreen.js";
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Tab = createBottomTabNavigator();
 const TabNavigation = () => {
   return (
-    <Tab.Navigator screenOptions={{ headerTitleAlign: "center" }}>
+    <Tab.Navigator
+      screenOptions={{
+        headerTitleAlign: "center",
+      }}
+    >
       <Tab.Screen
-        name="Home"
+        name="PMS"
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
@@ -33,7 +38,7 @@ const TabNavigation = () => {
       />
       <Tab.Screen
         name="Records"
-        component={HomeScreen}
+        component={LoginScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <MaterialCommunityIcons
