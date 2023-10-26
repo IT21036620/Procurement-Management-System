@@ -56,6 +56,7 @@ public class ItemPersistentAdapter implements SaveItemPort, GetItemPort, SaveSup
             existingItem.setName(item.getName());
             existingItem.setDescription(item.getDescription());
             existingItem.setPrice(item.getPrice());
+            existingItem.setImage(item.getImage());
 
             if (item.getSupplier() != null) {
                 com.csse.procurement.api.procurementapicore.adapter.jpa.entity.Supplier supplier = supplierRepository.findById(item.getSupplier().getId()).orElse(null);
