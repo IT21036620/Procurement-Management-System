@@ -6,43 +6,163 @@ import {
   TouchableOpacity,
   FlatList,
   TextInput,
+  ScrollView,
+  Image,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // Assuming you're using Expo. If not, adjust accordingly.
 
 const DATA = [
-  { id: "1", title: "Item #1 Name", price: "$19.99" },
-  { id: "2", title: "Item #2 Name", price: "$29.99" },
-  { id: "3", title: "Item #3 Name", price: "$39.99" },
+  {
+    id: "1",
+    title: "Bricks",
+    price: "$19.99",
+    image:
+      "https://res.cloudinary.com/dbcmklrpv/image/upload/v1698306428/bricks_zfdxnu.jpg",
+  },
+  {
+    id: "2",
+    title: "Bulldozers",
+    price: "$29.99",
+    image:
+      "https://res.cloudinary.com/dbcmklrpv/image/upload/v1698306596/Bulldozer_gmicia.jpg",
+  },
+  {
+    id: "3",
+    title: "Cement",
+    price: "$39.99",
+    image:
+      "https://res.cloudinary.com/dbcmklrpv/image/upload/v1698306766/cement_v1mpjz.png",
+  },
+  {
+    id: "4",
+    title: "Cranes",
+    price: "$49.99",
+    image:
+      "https://res.cloudinary.com/dbcmklrpv/image/upload/v1698306865/Cranes_lv53zw.jpg",
+  },
+  {
+    id: "5",
+    title: "Electrical panels",
+    price: "$59.99",
+    image:
+      "https://res.cloudinary.com/dbcmklrpv/image/upload/v1698306991/Electrical-panel_tehsez.jpg",
+  },
+  {
+    id: "6",
+    title: "Excavator",
+    price: "$69.99",
+    image:
+      "https://res.cloudinary.com/dbcmklrpv/image/upload/v1698307075/Excavator_ru8lpi.jpg",
+  },
+  {
+    id: "7",
+    title: "Hard hats",
+    price: "$79.99",
+    image:
+      "https://res.cloudinary.com/dbcmklrpv/image/upload/v1698307157/Hard-hats_gc3s6d.jpg",
+  },
+  {
+    id: "8",
+    title: "Pipes",
+    price: "$89.99",
+    image:
+      "https://res.cloudinary.com/dbcmklrpv/image/upload/v1698307245/Pipes_l6ymdj.png",
+  },
+  {
+    id: "9",
+    title: "Safety goggles",
+    price: "$99.99",
+    image:
+      "https://res.cloudinary.com/dbcmklrpv/image/upload/v1698307353/Safety-goggles_mtu0ho.jpg",
+  },
+  {
+    id: "10",
+    title: "Steel",
+    price: "$109.99",
+    image:
+      "https://res.cloudinary.com/dbcmklrpv/image/upload/v1698307418/Steel_klpqua.jpg",
+  },
+  {
+    id: "11",
+    title: "Switches and outlets",
+    price: "$119.99",
+    image:
+      "https://res.cloudinary.com/dbcmklrpv/image/upload/v1698307496/Switches-and-outlets_rrnoos.png",
+  },
+  {
+    id: "12",
+    title: "Toilets",
+    price: "$129.99",
+    image:
+      "https://res.cloudinary.com/dbcmklrpv/image/upload/v1698307679/toilet_jos3du.jpg",
+  },
+  {
+    id: "13",
+    title: "Water heaters",
+    price: "$139.99",
+    image:
+      "https://res.cloudinary.com/dbcmklrpv/image/upload/v1698307747/Water-heater_fo7k8k.jpg",
+  },
+  {
+    id: "14",
+    title: "Wiring and cables",
+    price: "$149.99",
+    image:
+      "https://res.cloudinary.com/dbcmklrpv/image/upload/v1698307830/wiring-and-cables_s1swpb.jpg",
+  },
 ];
 
 const HomeScreen = () => {
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
-      <View style={styles.itemImage}></View>
+      <Image source={{ uri: item.image }} style={styles.itemImage} />
       <Text style={styles.itemTitle}>{item.title}</Text>
       <Text style={styles.itemPrice}>{item.price}</Text>
     </View>
   );
 
   return (
-    <View style={styles.container}>
-      <TextInput style={styles.searchBar} placeholder="Search" />
-      <Text style={styles.sectionTitle}>Hot deals</Text>
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        horizontal={true}
-      />
-      <Text style={styles.sectionTitle}>Trending</Text>
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        horizontal={true}
-      />
-      {/* Add more sections as needed */}
-    </View>
+    <ScrollView style={styles.container}>
+      <View style={styles.container}>
+        <TextInput style={styles.searchBar} placeholder="Search" />
+        <Text style={styles.sectionTitle}>Building Materials</Text>
+        <FlatList
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          horizontal={true}
+        />
+        <Text style={styles.sectionTitle}>Construction Equipment</Text>
+        <FlatList
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          horizontal={true}
+        />
+        <Text style={styles.sectionTitle}>Electrical Supplies</Text>
+        <FlatList
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          horizontal={true}
+        />
+        <Text style={styles.sectionTitle}>Plumbing Supplies</Text>
+        <FlatList
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          horizontal={true}
+        />
+        <Text style={styles.sectionTitle}>Safety Equipment</Text>
+        <FlatList
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          horizontal={true}
+        />
+        {/* Add more sections as needed */}
+      </View>
+    </ScrollView>
   );
 };
 

@@ -3,6 +3,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import HomeScreen from "../components/Home/HomeScreen.js";
+import ContentScreen from "../components/Shop/ContentScreen.js";
 
 // import Profile from '../screens/ProfileScreen.js';
 // import HomeNavigator from './HomeNavigator.js';
@@ -23,7 +24,7 @@ const TabNavigation = () => {
       }}
     >
       <Tab.Screen
-        name="PMS"
+        name="PMS Home"
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
@@ -37,7 +38,7 @@ const TabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Records"
+        name="Orders"
         component={LoginScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
@@ -51,7 +52,7 @@ const TabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Reminders"
+        name="Notificatons"
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
@@ -65,8 +66,8 @@ const TabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="MediShareNav"
-        component={HomeScreen}
+        name="Shop"
+        component={ContentScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <MaterialCommunityIcons
