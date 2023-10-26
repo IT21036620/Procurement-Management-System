@@ -125,6 +125,7 @@ public class OrderPersistentAdapter implements SavePurchaseOrderPort, GetPurchas
             existingRequisition.setReqOrdNo(requisition.getReqOrdNo());
             existingRequisition.setDetails(requisition.getDetails());
             existingRequisition.setStatus(String.valueOf(requisition.getStatus()));
+            existingRequisition.setAmount(requisition.getAmount());
 
             requisitionRepository.save(existingRequisition);
         }

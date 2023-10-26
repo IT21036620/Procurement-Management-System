@@ -1,15 +1,15 @@
 package com.csse.procurement.api.procurementapicore.adapter.jpa.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Invoice extends BaseEntity {
     private String description;
