@@ -16,6 +16,7 @@ public class Item extends BaseEntity {
     private String name;
     private String description;
     private String image;
+    private String category;
     private Double price;
 
     @ManyToOne(fetch = FetchType.LAZY)
