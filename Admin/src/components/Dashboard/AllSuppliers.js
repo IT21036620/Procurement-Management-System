@@ -5,37 +5,37 @@ import axios from 'axios'
 import useAuth from '../../hooks/useAuth'
 import * as XLSX from 'xlsx'
 
-export default function AllCustomers() {
-  const [customers, SetCustomers] = useState([])
+export default function AllSuppliers() {
+  const [suppliers, SetSuppliers] = useState([])
   const { auth } = useAuth()
 
   useEffect(() => {
-    function getCustomers() {
+    function getSuppliers() {
       axios
-        .get('http://localhost:4000/api/v1/cust')
+        .get('http://localhost:4000/item/supplier')
         .then((res) => {
-          console.log(res.data.customers)
-          SetCustomers(res.data.customers)
+          console.log(res.data.result)
+          SetSuppliers(res.data.result)
         })
         .catch((err) => {
           alert(err.message)
         })
     }
 
-    getCustomers()
-  }, [customers])
+    getSuppliers()
+  }, [suppliers])
 
   const exportToExcel = () => {
-    const ws = XLSX.utils.json_to_sheet(customers)
+    const ws = XLSX.utils.json_to_sheet(suppliers)
     const wb = XLSX.utils.book_new()
-    XLSX.utils.book_append_sheet(wb, ws, 'Customers')
-    XLSX.writeFile(wb, 'customers.xlsx')
+    XLSX.utils.book_append_sheet(wb, ws, 'Suppliers')
+    XLSX.writeFile(wb, 'Suppliers.xlsx')
   }
 
   return (
     <div className="bg-white px-4 pt-3 pb-4 rounded-sm border border-gray-200 flex-1">
       <div className="flex justify-between items-center">
-        <strong className="text-gray-700 font-medium">All Customers</strong>
+        <strong className="text-gray-700 font-medium">All Suppliers</strong>
 
         <button
           onClick={exportToExcel}
@@ -51,21 +51,19 @@ export default function AllCustomers() {
             <tr>
               <th>ID</th>
               <th>First Name</th>
-              <th>Last Name</th>
-              <th>Contact Number</th>
               <th>Address</th>
-              <th>Registered Date</th>
+              <th>Email</th>
+              <th>Contact Number</th>
             </tr>
           </thead>
           <tbody>
-            {customers.map((customer) => (
-              <tr key={customer._id}>
-                <td>{customer._id}</td>
-                <td>{customer.firstName}</td>
-                <td>{customer.lastName}</td>
-                <td>{customer.contactNumber}</td>
-                <td>{customer.address}</td>
-                <td>{customer.createdAt}</td>
+            {suppliers.map((supplier) => (
+              <tr key={supplier.id}>
+                <td>{supplier.id}</td>
+                <td>{supplier.supplierName}</td>
+                <td>{supplier.address}</td>
+                <td>{supplier.email}</td>
+                <td>{supplier.contactNo}</td>
               </tr>
             ))}
           </tbody>
