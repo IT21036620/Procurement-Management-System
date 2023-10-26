@@ -1,8 +1,8 @@
 package com.csse.procurement.business.port.out;
 
+import com.csse.procurement.business.entity.Cart;
 import com.csse.procurement.business.entity.PurchaseOrder;
 import com.csse.procurement.business.entity.PurchaseOrderItem;
-import com.csse.procurement.business.entity.Requisition;
 
 import java.util.List;
 
@@ -26,4 +26,8 @@ public interface GetPurchaseOrderPort {
      * @return - List of purchase order items
      */
     List<PurchaseOrderItem> getAllPoItemsByPoId(Long id);
+
+    Cart getCartById(Long id);
+
+    Cart getCartBySiteManagerId(Long id);
 }

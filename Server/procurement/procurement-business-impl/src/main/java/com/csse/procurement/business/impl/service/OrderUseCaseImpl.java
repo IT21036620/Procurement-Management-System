@@ -1,9 +1,6 @@
 package com.csse.procurement.business.impl.service;
 
-import com.csse.procurement.business.entity.LineManager;
-import com.csse.procurement.business.entity.PurchaseOrder;
-import com.csse.procurement.business.entity.PurchaseOrderItem;
-import com.csse.procurement.business.entity.Requisition;
+import com.csse.procurement.business.entity.*;
 import com.csse.procurement.business.exception.BusinessLogicException;
 import com.csse.procurement.business.port.in.OrderUseCase;
 import com.csse.procurement.business.port.out.GetPurchaseOrderPort;
@@ -119,5 +116,25 @@ public class OrderUseCaseImpl implements OrderUseCase {
     @Override
     public Requisition getRequisitionById(Long id) {
         return getRequisitionPort.getRequisitionById(id);
+    }
+
+    @Override
+    public void createCart(Cart cart) {
+        Double totalPrice = 0.0;
+        for (PurchaseOrderItem purchaseOrderItem : cart.getPurchaseOrderItemList()) {
+            totalPrice = totalPrice + purchaseOrderItem.getPrice();
+        }
+        cart.setTotalPrice(totalPrice);
+        savePurchaseOrderPort.createCart(cart);
+    }
+
+    @Override
+    public Cart getCartById(Long id) {
+        return getPurchaseOrderPort.getCartById(id);
+    }
+
+    @Override
+    public Cart getCartBySiteManagerId(Long id) {
+        return getPurchaseOrderPort.getCartBySiteManagerId(id);
     }
 }
