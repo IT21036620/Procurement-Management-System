@@ -15,4 +15,5 @@ public class Requisition extends BaseEntity {
     private String reqOrdNo;
     private String details;
     private RequisitionStatus status;
+    private Double amount;
 }

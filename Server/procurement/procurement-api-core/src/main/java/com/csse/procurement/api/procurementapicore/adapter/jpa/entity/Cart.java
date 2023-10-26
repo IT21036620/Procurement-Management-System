@@ -1,23 +1,19 @@
 package com.csse.procurement.api.procurementapicore.adapter.jpa.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class PurchaseOrder extends BaseEntity {
-    private String poReference;
-    private String status;
+public class Cart extends BaseEntity {
     private Double totalPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "siteManagerId")
+    @JoinColumn(name = "supplierId")
     private SiteManager siteManager;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

@@ -1,5 +1,6 @@
 package com.csse.procurement.api.procurementapicore.adapter.api.controller;
 
+import com.csse.procurement.api.procurementapicore.adapter.api.request.ItemRequest;
 import com.csse.procurement.api.procurementapicore.adapter.api.response.CommonResponse;
 import com.csse.procurement.business.entity.Item;
 import com.csse.procurement.business.entity.LineManager;
@@ -23,13 +24,21 @@ public class ItemController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createItem(@RequestBody final Item item) {
+    public ResponseEntity<String> createItem(@RequestBody final ItemRequest request) {
+        Item item = mapper.map(request, Item.class);
+        Supplier supplier = itemService.getSupplierById(request.getSupplier());
+        item.setSupplier(supplier);
         itemService.createItem(item);
         return ResponseEntity.ok(null);
     }
 
     @PutMapping
-    public ResponseEntity<CommonResponse> updateItem(@RequestBody Item item) {
+    public ResponseEntity<CommonResponse> updateItem(@RequestBody ItemRequest request) {
+        Item item = mapper.map(request, Item.class);
+        if (request.getSupplier() != null) {
+            Supplier supplier = itemService.getSupplierById(request.getSupplier());
+            item.setSupplier(supplier);
+        }
         itemService.updateItem(item);
         return ResponseEntity.status(HttpStatus.OK).body(new CommonResponse("updated item with id: " + item.getId()));
     }
