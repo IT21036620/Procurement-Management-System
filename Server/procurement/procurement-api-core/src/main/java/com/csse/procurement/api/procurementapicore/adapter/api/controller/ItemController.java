@@ -1,5 +1,6 @@
 package com.csse.procurement.api.procurementapicore.adapter.api.controller;
 
+import com.csse.procurement.api.procurementapicore.adapter.api.request.ItemRequest;
 import com.csse.procurement.api.procurementapicore.adapter.api.response.CommonResponse;
 import com.csse.procurement.business.entity.Item;
 import com.csse.procurement.business.entity.LineManager;
@@ -23,7 +24,10 @@ public class ItemController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createItem(@RequestBody final Item item) {
+    public ResponseEntity<String> createItem(@RequestBody final ItemRequest request) {
+        Item item = mapper.map(request, Item.class);
+        Supplier supplier = itemService.getSupplierById(request.getSupplier());
+        item.setSupplier(supplier);
         itemService.createItem(item);
         return ResponseEntity.ok(null);
     }

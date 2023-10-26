@@ -53,9 +53,15 @@ public class OrderPersistentAdapter implements SavePurchaseOrderPort, GetPurchas
             com.csse.procurement.api.procurementapicore.adapter.jpa.entity.PurchaseOrder existingPurchaseOrder = optionalPurchaseOrder.get();
             List<com.csse.procurement.api.procurementapicore.adapter.jpa.entity.PurchaseOrderItem> purchaseOrderItemList = new ArrayList<>();
 
-            existingPurchaseOrder.setPoReference(purchaseOrder.getPoReference());
-            existingPurchaseOrder.setTotalPrice(purchaseOrder.getTotalPrice());
-            existingPurchaseOrder.setStatus(String.valueOf(purchaseOrder.getStatus()));
+            if (purchaseOrder.getPoReference() != null && !purchaseOrder.getPoReference().isEmpty()) {
+                existingPurchaseOrder.setPoReference(purchaseOrder.getPoReference());
+            }
+            if (purchaseOrder.getTotalPrice() != null) {
+                existingPurchaseOrder.setTotalPrice(purchaseOrder.getTotalPrice());
+            }
+            if (purchaseOrder.getStatus() != null) {
+                existingPurchaseOrder.setStatus(String.valueOf(purchaseOrder.getStatus()));
+            }
 
             if (purchaseOrder.getSiteManager() != null) {
                 com.csse.procurement.api.procurementapicore.adapter.jpa.entity.SiteManager siteManager = siteManagerRepository.findById(purchaseOrder.getSiteManager().getId()).orElse(null);
@@ -141,10 +147,18 @@ public class OrderPersistentAdapter implements SavePurchaseOrderPort, GetPurchas
         if (optionalRequisition.isPresent()) {
             com.csse.procurement.api.procurementapicore.adapter.jpa.entity.Requisition existingRequisition = optionalRequisition.get();
 
-            existingRequisition.setReqOrdNo(requisition.getReqOrdNo());
-            existingRequisition.setDetails(requisition.getDetails());
-            existingRequisition.setStatus(String.valueOf(requisition.getStatus()));
-            existingRequisition.setAmount(requisition.getAmount());
+            if (requisition.getReqOrdNo() != null && !requisition.getReqOrdNo().isEmpty()) {
+                existingRequisition.setReqOrdNo(requisition.getReqOrdNo());
+            }
+            if (requisition.getDetails() != null && !requisition.getDetails().isEmpty()) {
+                existingRequisition.setDetails(requisition.getDetails());
+            }
+            if (requisition.getStatus() != null) {
+                existingRequisition.setStatus(String.valueOf(requisition.getStatus()));
+            }
+            if (requisition.getAmount() != null) {
+                existingRequisition.setAmount(requisition.getAmount());
+            }
 
             requisitionRepository.save(existingRequisition);
         }

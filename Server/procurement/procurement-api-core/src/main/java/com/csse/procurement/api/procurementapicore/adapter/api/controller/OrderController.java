@@ -33,7 +33,7 @@ public class OrderController {
         return ResponseEntity.ok(null);
     }
 
-    @PutMapping
+    @PatchMapping
     public ResponseEntity<CommonResponse> updatePurchaseOrder(@RequestBody PurchaseOrder purchaseOrder) {
         orderService.updatePurchaseOrder(purchaseOrder);
         return ResponseEntity.status(HttpStatus.OK).body(new CommonResponse("updated purchase order with id: " + purchaseOrder.getId()));
@@ -61,7 +61,7 @@ public class OrderController {
         return ResponseEntity.ok(null);
     }
 
-    @PutMapping("/requisition")
+    @PatchMapping("/requisition")
     public ResponseEntity<CommonResponse> updateRequisition(@RequestBody Requisition requisition) {
         orderService.updateRequisition(requisition);
         return ResponseEntity.status(HttpStatus.OK).body(new CommonResponse("updated requisition with id: " + requisition.getId()));
