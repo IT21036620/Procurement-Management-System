@@ -1,17 +1,15 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from '../components/mediShare/Home';
-import CreateRequest from '../components/mediShare/CreateRequest.js'
-import MyRequests from '../components/mediShare/MyRequests'
+import Home from '../components/Home/HomeScreen';
+import ItemDetails from '../components/Items/ItemDetails';
 
 const Stack = createNativeStackNavigator();
 
 function HomeNavigator() {
   return (
-      <Stack.Navigator >
+      <Stack.Navigator screenOptions={{ headerShown:false,}} >
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="CreateRequest" component={CreateRequest} />
-        <Stack.Screen name="MyRequests" component={MyRequests} />
+        <Stack.Screen name="ItemDetails" component={ItemDetails} />
       </Stack.Navigator>
   );
 }

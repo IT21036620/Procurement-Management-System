@@ -112,13 +112,15 @@ const DATA = [
   },
 ];
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const renderItem = ({ item }) => (
+    <TouchableOpacity onPress={() => navigation.navigate('ItemDetails', { item })}>
     <View style={styles.itemContainer}>
       <Image source={{ uri: item.image }} style={styles.itemImage} />
       <Text style={styles.itemTitle}>{item.title}</Text>
       <Text style={styles.itemPrice}>{item.price}</Text>
     </View>
+    </TouchableOpacity>
   );
 
   return (

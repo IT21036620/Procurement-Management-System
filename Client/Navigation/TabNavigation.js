@@ -2,6 +2,8 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
+import HomeNavigator from "./HomeNavigator.js";
+
 import HomeScreen from "../components/Home/HomeScreen.js";
 import ContentScreen from "../components/Shop/ContentScreen.js";
 
@@ -25,7 +27,7 @@ const TabNavigation = () => {
     >
       <Tab.Screen
         name="PMS Home"
-        component={HomeScreen}
+        component={HomeNavigator}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <MaterialCommunityIcons
