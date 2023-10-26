@@ -1,9 +1,6 @@
 package com.csse.procurement.api.procurementapicore.adapter.jpa;
 
-import com.csse.procurement.api.procurementapicore.adapter.jpa.repository.PurchaseOrderItemRepository;
-import com.csse.procurement.api.procurementapicore.adapter.jpa.repository.PurchaseOrderRepository;
-import com.csse.procurement.api.procurementapicore.adapter.jpa.repository.RequisitionRepository;
-import com.csse.procurement.api.procurementapicore.adapter.jpa.repository.SiteManagerRepository;
+import com.csse.procurement.api.procurementapicore.adapter.jpa.repository.*;
 import com.csse.procurement.business.entity.*;
 import com.csse.procurement.business.port.out.GetPurchaseOrderPort;
 import com.csse.procurement.business.port.out.GetRequisitionPort;
@@ -22,14 +19,16 @@ public class OrderPersistentAdapter implements SavePurchaseOrderPort, GetPurchas
     private final PurchaseOrderItemRepository purchaseOrderItemRepository;
     private final RequisitionRepository requisitionRepository;
     private final SiteManagerRepository siteManagerRepository;
+    private final CartRepository cartRepository;
 
     private org.modelmapper.ModelMapper mapper = new org.modelmapper.ModelMapper();
 
-    public OrderPersistentAdapter(PurchaseOrderRepository purchaseOrderRepository, PurchaseOrderItemRepository purchaseOrderItemRepository, RequisitionRepository requisitionRepository, SiteManagerRepository siteManagerRepository) {
+    public OrderPersistentAdapter(PurchaseOrderRepository purchaseOrderRepository, PurchaseOrderItemRepository purchaseOrderItemRepository, RequisitionRepository requisitionRepository, SiteManagerRepository siteManagerRepository, CartRepository cartRepository) {
         this.purchaseOrderRepository = purchaseOrderRepository;
         this.purchaseOrderItemRepository = purchaseOrderItemRepository;
         this.requisitionRepository = requisitionRepository;
         this.siteManagerRepository = siteManagerRepository;
+        this.cartRepository = cartRepository;
     }
 
     @Override
@@ -99,6 +98,26 @@ public class OrderPersistentAdapter implements SavePurchaseOrderPort, GetPurchas
     @Override
     public List<PurchaseOrderItem> getAllPoItemsByPoId(Long id) {
         return purchaseOrderItemRepository.findByPurchaseOrderId(id).stream().map(n-> mapper.map(n, PurchaseOrderItem.class)).toList();
+    }
+
+    @Override
+    public void createCart(Cart cart) {
+        if (cart != null) {
+            com.csse.procurement.api.procurementapicore.adapter.jpa.entity.Cart dbCart = mapper.map(cart, com.csse.procurement.api.procurementapicore.adapter.jpa.entity.Cart.class);
+            cartRepository.save(dbCart);
+        }
+    }
+
+    @Override
+    public Cart getCartById(Long id) {
+        Optional<com.csse.procurement.api.procurementapicore.adapter.jpa.entity.Cart> optionalCart = cartRepository.findById(id);
+        return mapper.map(optionalCart, Cart.class);
+    }
+
+    @Override
+    public Cart getCartBySiteManagerId(Long id) {
+        Optional<com.csse.procurement.api.procurementapicore.adapter.jpa.entity.Cart> optionalCart = cartRepository.getCartBySiteManagerId(id);
+        return mapper.map(optionalCart, Cart.class);
     }
 
     @Override

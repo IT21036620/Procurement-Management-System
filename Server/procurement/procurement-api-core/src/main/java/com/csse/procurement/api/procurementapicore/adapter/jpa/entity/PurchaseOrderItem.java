@@ -19,4 +19,8 @@ public class PurchaseOrderItem extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "purchaseOrderId")
     private PurchaseOrder purchaseOrder;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cartId")
+    private Cart cart;
 }
