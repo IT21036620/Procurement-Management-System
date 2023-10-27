@@ -1,5 +1,6 @@
 import React from 'react'
 import DashboardStatGrid from './DashboardStatGrid'
+import profile from '../Dashboard/img/profile-icon.jpg'
 
 export default function Dashboard() {
   return (
@@ -7,15 +8,11 @@ export default function Dashboard() {
       <header className="flex justify-between items-center">
         <h1 className="text-3xl font-semibold">Admin Dashboard</h1>
         <div className="flex items-center space-x-4">
-          <div className="bg-white p-3 rounded-full">
+          {/* <div className="bg-white p-3 rounded-full">
             <img src="/path-to-bell-icon.svg" alt="Notifications" />
-          </div>
+          </div> */}
           <div className="flex items-center space-x-2">
-            <img
-              src="/path-to-profile-picture.jpg"
-              alt="Profile"
-              className="w-8 h-8 rounded-full"
-            />
+            <img src={profile} alt="Profile" className="w-8 h-8 rounded-full" />
             <span>My profile</span>
           </div>
         </div>
