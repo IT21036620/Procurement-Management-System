@@ -9,8 +9,10 @@ export default function AllProducts() {
   const [newProduct, setNewProduct] = useState({
     name: '',
     description: '',
-    price: '',
-    supplier: '',
+    price: 0, // Updated to default to 0
+    image: '', // Added image field
+    category: '',
+    supplier: null,
   })
 
   useEffect(() => {
@@ -35,6 +37,15 @@ export default function AllProducts() {
       })
   }, [])
 
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    if (name === 'price') {
+      setNewProduct((prev) => ({ ...prev, [name]: Number(value) })) // Convert price to number
+    } else {
+      setNewProduct((prev) => ({ ...prev, [name]: value }))
+    }
+  }
+
   const addProduct = (product) => {
     axios
       .post('http://localhost:4000/item', product)
@@ -44,11 +55,6 @@ export default function AllProducts() {
       .catch((err) => {
         alert(err.message)
       })
-  }
-
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setNewProduct((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = (e) => {
@@ -78,6 +84,12 @@ export default function AllProducts() {
                 className="w-full p-2 border rounded"
               />
               <input
+                name="category"
+                placeholder="Product Category"
+                onChange={handleChange}
+                className="w-full p-2 border rounded"
+              />
+              <input
                 name="description"
                 placeholder="Product Description"
                 onChange={handleChange}
@@ -89,14 +101,20 @@ export default function AllProducts() {
                 onChange={handleChange}
                 className="w-full p-2 border rounded"
               />
+              <input
+                name="image"
+                placeholder="Product Image Link"
+                onChange={handleChange}
+                className="w-full p-2 border rounded"
+              />
               <div>
-                <label htmlFor="supplierId" className="block mb-2">
-                  Supplier ID
+                <label htmlFor="supplier" className="block mb-2">
+                  Supplier
                 </label>
                 <select
-                  id="supplierId"
-                  name="supplierId"
-                  value={newProduct.supplierId}
+                  id="supplier"
+                  name="supplier"
+                  value={newProduct.supplier}
                   onChange={handleChange}
                   className="w-full p-2 border rounded"
                 >
@@ -110,6 +128,7 @@ export default function AllProducts() {
                   ))}
                 </select>
               </div>
+
               <div className="flex justify-end space-x-2">
                 <button
                   type="submit"
@@ -154,6 +173,7 @@ export default function AllProducts() {
             <tr>
               <th>ID</th>
               <th>Item Name</th>
+              <th>Category</th>
               <th>Description</th>
               <th>Unit Price</th>
               <th>Supplier Name</th>
@@ -165,6 +185,7 @@ export default function AllProducts() {
               <tr key={product.id}>
                 <td>{product.id}</td>
                 <td>{product.name}</td>
+                <td>{product.category}</td>
                 <td>{product.description}</td>
                 <td>Rs.{product.price}</td>
                 <td>{product.supplier.supplierName}</td>

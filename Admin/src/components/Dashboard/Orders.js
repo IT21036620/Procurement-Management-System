@@ -24,9 +24,9 @@ export default function Orders() {
 
   const updateOrderStatus = (orderId, newStatus) => {
     axios
-      .put('http://localhost:4000/order/requisition', {
-        id: orderId,
-        status: newStatus,
+      .patch('http://localhost:4000/order/requisition', {
+        id: 1,
+        status: 'test',
       })
       .then(() => {
         // Update the order status in the state
