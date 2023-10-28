@@ -24,7 +24,7 @@ const TabNavigation = () => {
       }}
     >
       <Tab.Screen
-        name="PMS Home"
+        name="KBS"
         component={HomeNavigator}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
