@@ -9,6 +9,8 @@ import AllProducts from '../components/Dashboard/AllProducts'
 import AddNewUser from '../components/Dashboard/AddNewUser'
 import RequireAuth from '../components/login/RequireAuth'
 import ItemPerformance from '../components/Dashboard/ItemPerformance'
+import SiteManagers from '../components/Dashboard/SiteManagers'
+import AllSites from '../components/Dashboard/AllSites'
 
 export default function adminRoutes() {
   return (
@@ -23,6 +25,8 @@ export default function adminRoutes() {
         <Route path="orders" element={<Orders />} />
         <Route path="orderDetails" element={<OrderDetails />} />
         <Route path="iperformance" element={<ItemPerformance />} />
+        <Route path="siteManagers" element={<SiteManagers />} />
+        <Route path="allSites" element={<AllSites />} />
       </Route>
       {/* </Route> */}
     </Routes>

@@ -3,26 +3,27 @@ import axios from 'axios'
 import useAuth from '../../hooks/useAuth'
 import * as XLSX from 'xlsx'
 
-export default function AllSuppliers() {
-  const [suppliers, setSuppliers] = useState([])
+export default function SiteManagers() {
+  const [siteManagers, setSiteManagers] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [newSupplier, setNewSupplier] = useState({
-    supplierName: '',
-    address: '',
+  const [newManager, setNewManager] = useState({
+    userName: '',
+    employeeCode: '',
     email: '',
     contactNo: '',
+    role: '',
   })
   const { auth } = useAuth()
 
   useEffect(() => {
-    getSuppliers()
+    getSiteManagers()
   }, [])
 
-  const getSuppliers = () => {
+  const getSiteManagers = () => {
     axios
-      .get('http://localhost:4000/item/supplier')
+      .get('http://localhost:4000/site/site-manager')
       .then((res) => {
-        setSuppliers(res.data.result)
+        setSiteManagers(res.data.result)
       })
       .catch((err) => {
         alert(err.message)
@@ -31,29 +32,29 @@ export default function AllSuppliers() {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    setNewSupplier((prev) => ({ ...prev, [name]: value }))
+    setNewManager((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     axios
-      .post('http://localhost:4000/item/supplier', newSupplier)
+      .post('http://localhost:4000/site/site-manager', newManager)
       .then(() => {
         setIsModalOpen(false)
-        getSuppliers()
+        getSiteManagers()
       })
       .catch((err) => {
         alert(err.message)
       })
   }
 
-  const deleteSupplier = (id) => {
-    if (window.confirm('Are you sure you want to delete this supplier?')) {
+  const deleteManager = (id) => {
+    if (window.confirm('Are you sure you want to delete this manager?')) {
       axios
-        .delete(`http://localhost:4000/item/supplier/${id}`)
+        .delete(`http://localhost:4000/site/site-manager/${id}`)
         .then(() => {
-          alert('Supplier deleted successfully')
-          getSuppliers()
+          alert('Site Manager deleted successfully')
+          getSiteManagers()
         })
         .catch((err) => {
           alert(err.message)
@@ -62,26 +63,26 @@ export default function AllSuppliers() {
   }
 
   const exportToExcel = () => {
-    const ws = XLSX.utils.json_to_sheet(suppliers)
+    const ws = XLSX.utils.json_to_sheet(siteManagers)
     const wb = XLSX.utils.book_new()
-    XLSX.utils.book_append_sheet(wb, ws, 'Suppliers')
-    XLSX.writeFile(wb, 'Suppliers.xlsx')
+    XLSX.utils.book_append_sheet(wb, ws, 'SiteManagers')
+    XLSX.writeFile(wb, 'SiteManagers.xlsx')
   }
 
   const renderModal = () => (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-50">
       <div className="bg-white p-8 rounded-md shadow-xl w-1/3">
-        <h2 className="text-2xl mb-4">Add New Supplier</h2>
+        <h2 className="text-2xl mb-4">Add New Site Manager</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
-            name="supplierName"
-            placeholder="Supplier Name"
+            name="userName"
+            placeholder="Name"
             onChange={handleChange}
             className="w-full p-2 border rounded"
           />
           <input
-            name="address"
-            placeholder="Address"
+            name="employeeCode"
+            placeholder="Employee Code"
             onChange={handleChange}
             className="w-full p-2 border rounded"
           />
@@ -97,6 +98,12 @@ export default function AllSuppliers() {
             onChange={handleChange}
             className="w-full p-2 border rounded"
           />
+          <input
+            name="role"
+            placeholder="Role"
+            onChange={handleChange}
+            className="w-full p-2 border rounded"
+          />
           <div className="flex justify-end space-x-2">
             <button
               type="submit"
@@ -109,7 +116,7 @@ export default function AllSuppliers() {
               onClick={() => setIsModalOpen(false)}
               className="px-4 py-2 bg-red-500 text-white rounded"
             >
-              Close
+              Cancel
             </button>
           </div>
         </form>
@@ -120,12 +127,12 @@ export default function AllSuppliers() {
   return (
     <div className="bg-white px-4 pt-3 pb-4 rounded-sm border border-gray-200 flex-1">
       <div className="flex justify-between items-center">
-        <strong className="text-gray-700 font-medium">All Suppliers</strong>
+        <strong className="text-gray-700 font-medium">All Site Managers</strong>
         <button
           onClick={() => setIsModalOpen(true)}
           className="bg-green-500 text-white px-4 py-2 rounded"
         >
-          Add New Supplier
+          Add New Manager
         </button>
         <button
           onClick={exportToExcel}
@@ -142,24 +149,26 @@ export default function AllSuppliers() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Supplier Name</th>
-              <th>Address</th>
+              <th>First Name</th>
+              <th>Employee Code</th>
               <th>Email</th>
               <th>Contact Number</th>
+              <th>Role</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {suppliers.map((supplier) => (
-              <tr key={supplier.id}>
-                <td>{supplier.id}</td>
-                <td>{supplier.supplierName}</td>
-                <td>{supplier.address}</td>
-                <td>{supplier.email}</td>
-                <td>{supplier.contactNo}</td>
+            {siteManagers.map((manager) => (
+              <tr key={manager.id}>
+                <td>{manager.id}</td>
+                <td>{manager.userName}</td>
+                <td>{manager.employeeCode}</td>
+                <td>{manager.email}</td>
+                <td>{manager.contactNo}</td>
+                <td>{manager.role}</td>
                 <td>
                   <button
-                    onClick={() => deleteSupplier(supplier.id)}
+                    onClick={() => deleteManager(manager.id)}
                     className="bg-red-500 text-white px-2 py-1 rounded"
                   >
                     Delete

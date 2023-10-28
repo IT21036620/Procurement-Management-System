@@ -25,8 +25,8 @@ export default function Orders() {
   const updateOrderStatus = (orderId, newStatus) => {
     axios
       .patch('http://localhost:4000/order/requisition', {
-        id: 1,
-        status: 'test',
+        id: orderId,
+        status: newStatus,
       })
       .then(() => {
         // Update the order status in the state
@@ -65,9 +65,9 @@ export default function Orders() {
               <td>
                 <span
                   className={`px-2 py-1 rounded-full text-xs ${
-                    order.status === 'Accepted'
+                    order.status === 'ACCEPTED'
                       ? 'bg-green-500 text-white'
-                      : order.status === 'Rejected'
+                      : order.status === 'REJECTED'
                       ? 'bg-red-500 text-white'
                       : 'bg-yellow-500 text-white'
                   }`}
@@ -78,13 +78,13 @@ export default function Orders() {
               <td className="flex space-x-4">
                 <button
                   className="text-green-500"
-                  onClick={() => updateOrderStatus(order.id, 'Accepted')}
+                  onClick={() => updateOrderStatus(order.id, 'ACCEPTED')}
                 >
                   Accept
                 </button>
                 <button
                   className="text-red-500"
-                  onClick={() => updateOrderStatus(order.id, 'Rejected')}
+                  onClick={() => updateOrderStatus(order.id, 'REJECTED')}
                 >
                   Reject
                 </button>
