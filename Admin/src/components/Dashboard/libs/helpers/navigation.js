@@ -18,8 +18,14 @@ export const DASHBOARD_SIDEBAR_LINKS = [
   },
   {
     key: 'dashboard',
-    label: 'Projects',
-    path: '/admin',
+    label: 'Sites',
+    path: '/allSites',
+    icon: <HiOutlineViewGrid />,
+  },
+  {
+    key: 'dashboard',
+    label: 'Site Managers',
+    path: '/siteManagers',
     icon: <HiOutlineViewGrid />,
   },
   {

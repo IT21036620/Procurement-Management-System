@@ -3,30 +3,31 @@ import axios from 'axios'
 import * as XLSX from 'xlsx'
 
 export default function AllProducts() {
-  const [products, SetProducts] = useState([])
+  const [products, setProducts] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [suppliers, setSuppliers] = useState([])
   const [newProduct, setNewProduct] = useState({
     name: '',
     description: '',
-    price: 0, // Updated to default to 0
-    image: '', // Added image field
+    price: 0,
+    image: '',
     category: '',
     supplier: null,
   })
 
-  useEffect(() => {
-    // Fetch products
+  const getProducts = () => {
     axios
       .get('http://localhost:4000/item')
       .then((res) => {
-        SetProducts(res.data.result)
+        setProducts(res.data.result)
       })
       .catch((err) => {
         alert(err.message)
       })
+  }
 
-    // Fetch suppliers
+  useEffect(() => {
+    getProducts()
     axios
       .get('http://localhost:4000/item/supplier')
       .then((res) => {
@@ -39,11 +40,10 @@ export default function AllProducts() {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    if (name === 'price') {
-      setNewProduct((prev) => ({ ...prev, [name]: Number(value) })) // Convert price to number
-    } else {
-      setNewProduct((prev) => ({ ...prev, [name]: value }))
-    }
+    setNewProduct((prev) => ({
+      ...prev,
+      [name]: name === 'price' ? Number(value) : value,
+    }))
   }
 
   const addProduct = (product) => {
@@ -61,6 +61,20 @@ export default function AllProducts() {
     e.preventDefault()
     addProduct(newProduct)
     setIsModalOpen(false)
+  }
+
+  const deleteProduct = (id) => {
+    if (window.confirm('Are you sure you want to delete this product?')) {
+      axios
+        .delete(`http://localhost:4000/item/${id}`)
+        .then(() => {
+          alert('Product deleted successfully')
+          getProducts()
+        })
+        .catch((err) => {
+          alert(err.message)
+        })
+    }
   }
 
   const exportToExcel = () => {
@@ -97,6 +111,7 @@ export default function AllProducts() {
               />
               <input
                 name="price"
+                type="number"
                 placeholder="Unit Price"
                 onChange={handleChange}
                 className="w-full p-2 border rounded"
@@ -123,7 +138,7 @@ export default function AllProducts() {
                   </option>
                   {suppliers.map((supplier) => (
                     <option key={supplier.id} value={supplier.id}>
-                      {supplier.id}
+                      {supplier.name}
                     </option>
                   ))}
                 </select>
@@ -154,14 +169,14 @@ export default function AllProducts() {
 
         <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-green-500 text-white px-4 py-2 rounded "
+          className="bg-green-500 text-white px-4 py-2 rounded"
         >
           Add New Product
         </button>
 
         <button
           onClick={exportToExcel}
-          className="bg-blue-500 text-white px-4 py-2 rounded "
+          className="bg-blue-500 text-white px-4 py-2 rounded"
         >
           Export
         </button>
@@ -178,6 +193,7 @@ export default function AllProducts() {
               <th>Unit Price</th>
               <th>Supplier Name</th>
               <th>Supplier Contact No</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -188,8 +204,16 @@ export default function AllProducts() {
                 <td>{product.category}</td>
                 <td>{product.description}</td>
                 <td>Rs.{product.price}</td>
-                <td>{product.supplier.supplierName}</td>
-                <td>{product.supplier.contactNo}</td>
+                <td>{product.supplier?.supplierName}</td>
+                <td>{product.supplier?.contactNo}</td>
+                <td>
+                  <button
+                    onClick={() => deleteProduct(product.id)}
+                    className="bg-red-500 text-white px-2 py-1 rounded"
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
